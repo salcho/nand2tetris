@@ -58,7 +58,7 @@ CHIP CPU {
 
 	Mux16(a=instruction, b=alu, sel=isC, out=ins);
 	Or(a=isA, b=aDest, out=aLoad);
-	Register(in=ins, load=aLoad, out=areg);
+	ARegister(in=ins, load=aLoad, out=areg);
 	LSB(in=areg, out=addressM);
 
 	ALU(x=dreg, y=aOrM, zx=c1, nx=c2, zy=c3, ny=c4, f=c5, no=c6, out=alu, out=outM, zr=zr, ng=ng);
@@ -73,7 +73,7 @@ CHIP CPU {
 	Not(in=jmp, out=noJmp);
 
 	Mux16(a=areg, b=inM, sel=a, out=aOrM);
-	Register(in=alu, load=dLoad, out=dreg);
+	DRegister(in=alu, load=dLoad, out=dreg);
 	PC(in=areg, load=jmp, inc=noJmp, reset=reset, out=fullPC);
 	LSB(in=fullPC, out=pc);
 }
